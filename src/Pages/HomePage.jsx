@@ -1,14 +1,11 @@
-import logo from "../logo.svg";
-
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextItem from "../components/TextItem";
-
+import { Container, Typography, Grid } from "@mui/material";
 
 function HomePage() {
   const [personList, setPersonList] = useState([{ name: "Hello", age: 23 }]);
-  
-// creating a new data when button click
+
   const addItem = () => {
     const newPerson = {
       name: Math.random().toString(36).substring(2, 7),
@@ -25,23 +22,26 @@ function HomePage() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to the EazyDraft test application.</p>
-        <Button onClick={addItem} >Click to add a person</Button>
+    <Container maxWidth="md" style={{ marginTop: 40 }}>
+      <Typography variant="h4" gutterBottom>
+        Welcome to the EazyDraft test application.
+      </Typography>
+      <Button variant="contained" onClick={addItem}>
+        Click to add a person
+      </Button>
 
-        {/* Display the data hear */}
+      <Grid container spacing={2} style={{ marginTop: 20 }}>
         {personList.map((person, index) => (
-          <TextItem
-            key={index}
-            name={person.name}
-            age={person.age}
-            updateDetails={() => updateDetails(person.name, person.age)}
-          />
+          <Grid item xs={3} key={index}>
+            <TextItem
+              name={person.name}
+              age={person.age}
+              updateDetails={() => updateDetails(person.name, person.age)}
+            />
+          </Grid>
         ))}
-      </header>
-    </div>
+      </Grid>
+    </Container>
   );
 }
 
